@@ -6,5 +6,7 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'media',
   plugins: [forms, ui],
+  daisyui: {
+    themes: ["night"],
+  },
 };
-

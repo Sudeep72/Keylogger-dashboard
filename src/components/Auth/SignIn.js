@@ -28,66 +28,49 @@ const SignIn = () => {
     }
   }
 
+
   return (
-    <div className="card">
-      <h2 className="w-full text-center">Sign In</h2>
-      <Formik
-        initialValues={{
-          email: '',
-          password: '',
-        }}
-        validationSchema={SignInSchema}
-        onSubmit={signIn}
-      >
-        {({ errors, touched }) => (
-          <Form className="column w-full">
-            <label htmlFor="email">Email</label>
-            <Field
-              className={cn('input', errors.email && touched.email && 'bg-red-50')}
-              id="email"
-              name="email"
-              placeholder="jane@acme.com"
-              type="email"
-            />
-            {errors.email && touched.email ? (
-              <div className="text-red-600">{errors.email}</div>
-            ) : null}
-
-            <label htmlFor="email">Password</label>
-            <Field
-              className={cn('input', errors.password && touched.password && 'bg-red-50')}
-              id="password"
-              name="password"
-              type="password"
-            />
-            {errors.password && touched.password ? (
-              <div className="text-red-600">{errors.password}</div>
-            ) : null}
-
-            <button
-              className="link w-full"
-              type="button"
-              onClick={() => setView(VIEWS.FORGOTTEN_PASSWORD)}
-            >
-              Forgot your password?
-            </button>
-
-            <button className="button-inverse w-full" type="submit">
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik>
-      {errorMsg && <div className="text-red-600">{errorMsg}</div>}
-      <button
-        className="link w-full"
-        type="button"
-        onClick={() => setView(VIEWS.SIGN_UP)}
-      >
-        Don&apos;t have an account? Sign Up.
-      </button>
+    <div className="hero min-h-screen bg-base-200">
+      <div className="hero-content flex-col">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold">Login now!</h1>
+        </div>
+        <div className="card w-screen shadow-2xl bg-base-100">
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            validationSchema={SignInSchema}
+            onSubmit={signIn}
+          >
+            {({ errors, touched }) => (
+              <Form className="card-body">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <Field id="email" name="email" type="text" placeholder="email" className="input input-bordered" />
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Password</span>
+                  </label>
+                  <Field id="password" name="password" type="password" placeholder="password" className="input input-bordered" />
+                  <label className="label">
+                    <button type="button" onClick={() => setView(VIEWS.FORGOTTEN_PASSWORD)} className="label-text-alt link link-hover">Forgot password?</button>
+                  </label>
+                </div>
+                <div className="form-control mt-6">
+                  <button className="btn btn-primary">Login</button>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </div>
     </div>
-  );
+  )
 };
 
 export default SignIn;
