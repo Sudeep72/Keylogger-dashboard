@@ -1,10 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import cn from 'classnames';
+import { useEffect, useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
-
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
 import supabase from 'src/lib/supabase-browser';
 
@@ -16,6 +14,21 @@ const SignInSchema = Yup.object().shape({
 const SignIn = () => {
   const { setView } = useAuth();
   const [errorMsg, setErrorMsg] = useState(null);
+  const [showError, setShowError] = useState(false);
+
+  useEffect(() => {
+    let timeout;
+
+    if (errorMsg) {
+      setShowError(true);
+      timeout = setTimeout(() => {
+        setErrorMsg(null);
+        setShowError(false);
+      }, 3000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [errorMsg]);
 
   async function signIn(formData) {
     const { error } = await supabase.auth.signInWithPassword({
@@ -28,14 +41,13 @@ const SignIn = () => {
     }
   }
 
-
   return (
     <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col">
-        <div className="text-center">
-          <h1 className="text-5xl font-bold">Login now!</h1>
-        </div>
-        <div className="card w-screen shadow-2xl bg-base-100">
+      <div className="hero-content flex">
+        <div className="card w-96 bg-base-100 shadow-2xl">
+          <div className="text-center">
+            <h1 className="text-5xl font-bold p-5">Login now!</h1>
+          </div>
           <Formik
             initialValues={{
               email: '',
@@ -50,19 +62,46 @@ const SignIn = () => {
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
-                  <Field id="email" name="email" type="text" placeholder="email" className="input input-bordered" />
+                  <Field
+                    id="email"
+                    name="email"
+                    type="text"
+                    placeholder="email"
+                    className="input-bordered input"
+                  />
+                  {errors.email && touched.email && (
+                    <div className="mt-1 text-red-600">{errors.email}</div>
+                  )}
                 </div>
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Password</span>
                   </label>
-                  <Field id="password" name="password" type="password" placeholder="password" className="input input-bordered" />
-                  <label className="label">
-                    <button type="button" onClick={() => setView(VIEWS.FORGOTTEN_PASSWORD)} className="label-text-alt link link-hover">Forgot password?</button>
-                  </label>
+                  <Field
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="password"
+                    className="input-bordered input"
+                  />
+                  {errors.password && touched.password && (
+                    <div className="mt-1 text-red-600">{errors.password}</div>
+                  )}
                 </div>
+                <div className="form-control mt-2">
+                  <button
+                    type="button"
+                    onClick={() => setView(VIEWS.FORGOTTEN_PASSWORD)}
+                    className="link-hover label-text-alt link"
+                  >
+                    Forgot password?
+                  </button>
+                </div>
+                {showError && (
+                  <div className="mt-4 text-center text-red-600"> {errorMsg}</div>
+                )}
                 <div className="form-control mt-6">
-                  <button className="btn btn-primary">Login</button>
+                  <button className="btn-primary btn">AuthXpress</button>
                 </div>
               </Form>
             )}
@@ -70,7 +109,8 @@ const SignIn = () => {
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default SignIn;
+
