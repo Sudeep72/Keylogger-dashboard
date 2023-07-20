@@ -7,6 +7,7 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 import UpdatePassword from './UpdatePassword';
 
+
 const Auth = ({ view: initialView }) => {
   let { view } = useAuth();
 

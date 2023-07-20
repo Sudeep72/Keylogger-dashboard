@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import Auth from 'src/components/Auth';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
+import File from './profile/file/FileManager'
 
 export default function Home() {
   const { initial, user, view, signOut } = useAuth();
@@ -20,10 +21,11 @@ export default function Home() {
     return (
       <div className="card">
         <h2>Welcome!</h2>
-        <code className="highlight">{user.role}</code>
+        {/* <code className="highlight">{user.role}</code>
         <Link className="button" href="/profile">
           Go to Profile
-        </Link>
+        </Link> */}
+        <File />
         <button type="button" className="button-inverse" onClick={signOut}>
           Sign Out
         </button>
