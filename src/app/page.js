@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import Auth from 'src/components/Auth';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
-import File from './profile/file/FileManager'
+import File from '../components/file/File'
 
 export default function Home() {
   const { initial, user, view, signOut } = useAuth();

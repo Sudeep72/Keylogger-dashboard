@@ -1,8 +1,8 @@
 // components/FileItem.js
 import React from 'react';
 
-const FileItem = ({ name, type, onClick }) => {
-  const icon = type === 'folder' ? '📁' : '📄';
+const FileItem = ({ name, onClick }) => {
+  const icon = '📄';
 
   return (
     <div className="cursor-pointer" onClick={onClick}>
