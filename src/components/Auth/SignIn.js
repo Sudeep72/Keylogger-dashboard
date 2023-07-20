@@ -46,7 +46,7 @@ const SignIn = () => {
       <div className="hero-content flex">
         <div className="card w-96 bg-base-100 shadow-2xl">
           <div className="text-center">
-            <h1 className="text-5xl font-bold p-5">Login now!</h1>
+            <h1 className="text-5xl font-bold p-5 underline decoration-primary">Login now!</h1>
           </div>
           <Formik
             initialValues={{
