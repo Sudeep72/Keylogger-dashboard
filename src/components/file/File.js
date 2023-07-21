@@ -11,7 +11,7 @@ function FileManager() {
 
 	return (
 		<div className="p-4">
-			<div>
+			<div className="flex flex-wrap justify-start gap-4">
 				{files.map((file, index) => (
 					<FileItem key={index} name={file.name} updated_at={file.updated_at} size={file.size} />
 				))}

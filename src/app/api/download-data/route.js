@@ -1,14 +1,9 @@
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from 'src/lib/supabase-client';
 import { NextResponse } from 'next/server';
 
 import axios from 'axios';
 
 // export const runtime = 'edge';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_SUPABASE_SERVICE_ROLE_KEY
-);
 
 /**
  * 
@@ -24,7 +19,7 @@ export async function GET(req) {
             limit: 100,
             offset: 0,
             sortBy: { column: 'name', order: 'asc' },
-            search: `${pc_name}.txt`
+            search: `${req.nextUrl.searchParams.get('pc_name')}`
         })
 
     if (error) {
@@ -34,11 +29,14 @@ export async function GET(req) {
     }
 
     if (data.length !== 0) {
-        const file = await supabase.storage
+        const signedUrl = await supabase.storage
             .from('logs')
             .createSignedUrl(data[0].name, 60)
+        
+        const file = await fetch(signedUrl.data.signedUrl);
+        const text = await file.text();
 
-        return NextResponse.json(file.data.signedUrl, {
+        return NextResponse.json(text, {
             status: 200
         });
     } else {

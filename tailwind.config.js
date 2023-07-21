@@ -1,16 +1,20 @@
-/** @type {import('tailwindcss').Config} */
-const forms = require('@tailwindcss/forms');
-const ui = require('daisyui');
+/** 
+ * @type {import('tailwindcss').Config}
+ *
+*/
 
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
-      'raleway': ['Raleway', 'sans-serif'],
+      'poppins': ['Poppins', 'sans-serif'],
     },
   },
   darkMode: 'media',
-  plugins: [forms, ui],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('daisyui')
+  ],
   daisyui: {
     themes: ["night"],
   },

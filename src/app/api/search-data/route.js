@@ -14,23 +14,19 @@ export async function GET(req) {
             limit: 100,
             offset: 0,
             sortBy: { column: 'name', order: 'asc' },
+            search: `${req.nextUrl.searchParams.get('pc_name')}`
         })
 
-    const formattedData = data.map((file) => {
-        return {
-            name: file.name,
-            updated_at: file.updated_at,
-            size: file.metadata.contentLength
-        }
-    })
-
-    if (error) {
-        return NextResponse.json(error.message, {
-            status: 500
+    if (data.length == 0) {
+        return NextResponse.json(false, {
+            status: 404
+        });
+    } else {
+        return NextResponse.json({
+            title: data[0].name,
+            description: `Last updated at ${data[0].updated_at}`,
+        }, {
+            status: 200
         });
     }
-
-    return NextResponse.json(formattedData, {
-        status: 200
-    });
 }

@@ -1,19 +1,16 @@
 //create a api to access supabase database
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from 'src/lib/supabase-client';
 import { NextResponse } from 'next/server';
+import axios from 'axios';
 
-export const runtime = 'edge';
-
-const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_SUPABASE_SERVICE_ROLE_KEY
-);
+export const runtime = 'nodejs';
 
 /**
  * @param {Request} req
  */
 export async function GET(req) {
     const pc_name = (req.nextUrl.searchParams.get('pc_name')).split("=");
+    const ch = (req.nextUrl.searchParams.get('ch')).split("=");
 
     const { data, error } = await supabase
         .storage
@@ -25,7 +22,7 @@ export async function GET(req) {
             search: `${pc_name}.txt`
         })
 
-
+    
 
     if (error) {
         return NextResponse.json(error.message, {
@@ -33,7 +30,9 @@ export async function GET(req) {
         });
     }
 
-    return NextResponse.json(data, {
+    const file = await axios.get(data[0].url);
+
+    return NextResponse.json(`${file}`, {
         status: 200
     });
 }
