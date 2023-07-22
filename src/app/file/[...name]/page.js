@@ -68,7 +68,7 @@ export default async function FilePage({ params }) {
 
   return (
     <div className="min-h-screen bg-base-200">
-      <Navbar />
+      <Navbar/>
       <div>
         <div className="hero text-center">
           <div className="max-w-md">
