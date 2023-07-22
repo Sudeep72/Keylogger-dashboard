@@ -60,11 +60,17 @@ export default async function FilePage({ params }) {
 	}
 
 	const content = await fetcher(`http://localhost:3000/api/download-data?pc_name=${params.name}`)
+	const formattedDate = new Date(file.description).toLocaleDateString(undefined, {
+		weekday: 'long',
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	  });
 
 	return (
 		<div>
 			<h1>{file.title}</h1>
-			<p>{file.description}</p>
+			<p>{formattedDate}</p>
 			<pre>{content}</pre>
 		</div>
 	)

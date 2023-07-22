@@ -24,7 +24,7 @@ export async function GET(req) {
     } else {
         return NextResponse.json({
             title: data[0].name,
-            description: `Last updated at ${data[0].updated_at}`,
+            description: `${data[0].updated_at}`,
         }, {
             status: 200
         });

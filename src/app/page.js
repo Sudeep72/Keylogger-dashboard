@@ -1,55 +1,36 @@
 'use client';
 import Auth from 'src/components/Auth';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
-import Typewriter from 'typewriter-effect';
+import Navbar from '@/components/layout/Navbar';
 import File from '../components/file/File';
 
 export default function Home() {
-	const { initial, user, view, signOut } = useAuth();
+  const { initial, user, view, signOut } = useAuth();
 
-	if (initial) {
-		return <div className="card h-72">Loading...</div>;
-	}
+  if (initial) {
+    return <div className="card h-72">Loading...</div>;
+  }
 
-	if (view === VIEWS.UPDATE_PASSWORD) {
-		return <Auth view={view} />;
-	}
+  if (view === VIEWS.UPDATE_PASSWORD) {
+    return <Auth view={view} />;
+  }
 
-	if (user) {
-		return (
-			<div>
-				<div className="lg:absolute top-0 right-0 m-4 pt-2 hidden lg:block xl:block 2xl:block">
-					<button
-						className="px-4 py-2 btn btn-outline btn-primary"
-						onClick={signOut}
-					>
-						Sign Out
-					</button>
-				</div>
-				<h2 className="text-4xl font-extrabold text-center pt-5 py-7 font-poppins">
-					<span>It's time to wake up and smell the </span>
-					<span className='text-primary'>
-						<Typewriter
-							options={{
-								strings: ['Mutating Hash!!', 'Evolving Hash!!'],
-								autoStart: true,
-								loop: true,
-							}}
-						/>
-					</span>
-				</h2>
-				<File />
-				<div className='xl:hidden 2xk:hidden lg:hidden items-center justify-center flex flex-col pt-3 '>
-					<button
-						className="w-32 px-4 py-2 mt-4 btn btn-outline btn-primary"
-						onClick={signOut}
-					>
-						Sign Out
-					</button>
-				</div>
-			</div>
-		);
-	}
+  if (user) {
+    return (
+      <div>
+        <Navbar />
+        <File />
+        <div className="2xk:hidden flex flex-col items-center justify-center pt-3 lg:hidden xl:hidden ">
+          <button
+            className="btn-primary btn-outline btn mt-4 w-32 px-4 py-2"
+            onClick={signOut}
+          >
+            Sign Out
+          </button>
+        </div>
+      </div>
+    );
+  }
 
-	return <Auth view={view} />;
+  return <Auth view={view} />;
 }
