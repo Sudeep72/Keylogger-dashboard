@@ -1,3 +1,4 @@
+"use client";
 import Typewriter from 'typewriter-effect';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
 

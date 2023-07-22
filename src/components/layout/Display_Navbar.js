@@ -1,4 +1,6 @@
 "use client";
+import Typewriter from 'typewriter-effect';
+
 export default function Display() {
   function toggleMenu() {
     const dropdownMenu = document.getElementById("dropdown-menu");
@@ -52,7 +54,15 @@ export default function Display() {
         </div>
         <div className="navbar-center">
           <h2 className="py-7 pt-5 text-center font-poppins text-4xl font-extrabold">
-            Information is <span className="text-primary">Wealth</span>
+            Information is <span className="text-primary">
+            <Typewriter
+              options={{
+                strings: ['Wealth', 'the Key'],
+                autoStart: true,
+                loop: true,
+              }}
+            />
+          </span>
           </h2>
         </div>
       </div>
