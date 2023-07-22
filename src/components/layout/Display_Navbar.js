@@ -1,3 +1,4 @@
+"use client";
 export default function Display() {
   function toggleMenu() {
     const dropdownMenu = document.getElementById("dropdown-menu");
