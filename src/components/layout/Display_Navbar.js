@@ -49,13 +49,13 @@ export default function Display() {
                 className="dropdown-content menu rounded-box menu-sm z-[1] mt-3 w-52 bg-base-100 p-2 shadow hidden"
               >
                 <li>
-                  <button className="btn-primary btn-outline btn" onClick={() => goBack()}>
+                  <button onClick={() => goBack()}>
                     <svg className="h-6 w-6 fill-current md:h-8 md:w-8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path></svg>
                     Go Back
                   </button>
                 </li>
                 <li>
-                  <button className="btn-primary btn px-4 py-2" onClick={() => downloadFile()}>
+                  <button onClick={() => downloadFile()}>
                     Download
                   </button>
                 </li>
