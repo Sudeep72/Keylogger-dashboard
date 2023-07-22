@@ -1,12 +1,25 @@
 "use client";
 import Typewriter from 'typewriter-effect';
 import { useRouter } from 'next/navigation';
+import useSWR from 'swr';
 
-export default function Display() {
+export default function Display({ fileName }) {
   const router = useRouter();
+const fetcher = (url) => fetch(url).then((res) => res.json());
+
+
   function toggleMenu() {
     const dropdownMenu = document.getElementById("dropdown-menu");
     dropdownMenu.classList.toggle("hidden");
+  }
+
+  const { data, error } = useSWR(`/api/download-content?pc_name=${fileName}`, fetcher);
+
+  function downloadFile() {
+    if (error) {
+      return;
+    }
+    window.open(data, "_blank");
   }
 
   function goBack() {

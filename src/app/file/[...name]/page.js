@@ -6,7 +6,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 async function getFileFromParams(params) {
   const name = params?.name?.join('/');
-  const file = await fetcher(`http://localhost:3000/api/search-data?pc_name=${name}`);
+  const file = await fetcher(`https://whisparo.vercel.app/api/search-data?pc_name=${name}`);
 
   if (!file) {
     null;
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }) {
 }
 
 export async function generateStaticParams() {
-  const allFiles = await fetcher(`http://localhost:3000/api/list-data`);
+  const allFiles = await fetcher(`https://whisparo.vercel.app/api/list-data`);
   return allFiles.map((file) => ({
     params: {
       name: file.name.split('/'),
@@ -57,8 +57,9 @@ export default async function FilePage({ params }) {
   }
 
   const content = await fetcher(
-    `http://localhost:3000/api/download-data?pc_name=${params.name}`
+    `https://whisparo.vercel.app/api/download-data?pc_name=${params.name}`
   );
+
   const formattedDate = new Date(file.description).toLocaleDateString(undefined, {
     weekday: 'long',
     year: 'numeric',
@@ -68,7 +69,7 @@ export default async function FilePage({ params }) {
 
   return (
     <div className="min-h-screen bg-base-200">
-      <Navbar/>
+      <Navbar fileName={file.title} />
       <div>
         <div className="hero text-center">
           <div className="max-w-md">
