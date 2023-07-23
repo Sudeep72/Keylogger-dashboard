@@ -5,6 +5,7 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
 import supabase from 'src/lib/supabase-browser';
+import Footer from '../layout/Footer';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -108,6 +109,7 @@ const SignIn = () => {
           </Formik>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
