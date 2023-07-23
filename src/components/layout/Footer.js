@@ -2,15 +2,25 @@ import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 
 export default function Footer() {
+  // const email_reg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  // const [showToast, setShowToast] = useState(false);
+  // const [toastMessage, setToastMessage] = useState('');
+  // const [toastType, setToastType] = useState('');
+
+  // const possible = ['alert-warning', 'alert-error', 'alert-success']
   const [email, setEmail] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const templateParams = {
+      mailid: email,
+    };
+
     emailjs.send(
       'service_w5j0dip',
       'template_otclodr',
-      { email },
+      templateParams,
       'aoRgBGao7_WBFmpeQ'
     )
     .then((response) => {
