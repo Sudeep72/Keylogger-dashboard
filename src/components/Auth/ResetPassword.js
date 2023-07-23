@@ -15,13 +15,20 @@ const ResetPassword = () => {
   const [successMsg, setSuccessMsg] = useState(null);
 
   async function resetPassword(formData) {
-    const { error } = await supabase.auth.resetPasswordForEmail(formData?.email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_BASE_URL}`,
-    });
-    if (error) {
-      setErrorMsg(error.message);
-    } else {
-      setSuccessMsg('Wizardly Emailing');
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(formData?.email, {
+        redirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_BASE_URL}`,
+      });
+      if (error) {
+        setErrorMsg(error.message);
+        setTimeout(() => setErrorMsg(null), 3000); // Clear error message after 3 seconds
+      } else {
+        setSuccessMsg('Wizardly Emailing');
+        setTimeout(() => setSuccessMsg(null), 3000); // Clear success message after 3 seconds
+      }
+    } catch (error) {
+      setErrorMsg('An error occurred');
+      setTimeout(() => setErrorMsg(null), 3000); // Clear error message after 3 seconds
     }
   }
 
