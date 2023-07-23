@@ -1,5 +1,6 @@
 // components/FileManager.js
 'use client';
+import FileLoading from '../layout/File_Loading';
 import FileItem from './FileItem';
 import useSWR from 'swr';
 
@@ -7,7 +8,7 @@ function FileManager() {
 	const fetcher = url => fetch(url).then(res => res.json());
 	const { data: files, error, isLoading } = useSWR('/api/list-data', fetcher) || [];
 	if (error) return <div>{`${error}`}</div>
-	if (isLoading) return <div>loading...</div>
+	if (isLoading) return <FileLoading />
 
 	return (
 		<div className="p-4">

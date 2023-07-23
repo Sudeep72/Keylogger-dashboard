@@ -1,12 +1,13 @@
 "use client";
 import Typewriter from 'typewriter-effect';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
+import Loading from './Loading';
 
 function Navbar() {
   const { initial, user, view, signOut } = useAuth();
 
   if (initial) {
-    return <div className="card h-72">Loading...</div>;
+    return <Loading />;
   }
 
   if (view === VIEWS.UPDATE_PASSWORD) {

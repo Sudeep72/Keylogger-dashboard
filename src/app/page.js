@@ -3,12 +3,13 @@ import Auth from 'src/components/Auth';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
 import Navbar from '@/components/layout/Navbar';
 import File from '@/components/file/File';
+import Loading from '@/components/layout/Loading';
 
 export default function Home() {
   const { initial, user, view, signOut } = useAuth();
 
   if (initial) {
-    return <div className="card h-72">Loading...</div>;
+    return <Loading />;
   }
 
   if (view === VIEWS.UPDATE_PASSWORD) {
