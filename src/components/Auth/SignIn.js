@@ -5,7 +5,6 @@ import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
 import supabase from 'src/lib/supabase-browser';
-import Footer from '../layout/Footer';
 
 const SignInSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Required'),
@@ -47,7 +46,7 @@ const SignIn = () => {
       <div className="hero-content flex">
         <div className="card w-[42vh] lg:w-96 xl:w-96 bg-base-100 shadow-2xl">
           <div className="text-center">
-            <h1 className="text-5xl font-bold p-5 underline decoration-primary">Login now!</h1>
+            <h1 className="text-5xl font-bold p-5 underline decoration-primary">Snap Login!</h1>
           </div>
           <Formik
             initialValues={{

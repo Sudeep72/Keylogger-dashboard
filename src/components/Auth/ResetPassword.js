@@ -1,7 +1,4 @@
-'use client';
-
-import { useState } from 'react';
-import cn from 'classnames';
+import React, { useState } from 'react';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
@@ -21,48 +18,65 @@ const ResetPassword = () => {
     const { error } = await supabase.auth.resetPasswordForEmail(formData?.email, {
       redirectTo: `${process.env.NEXT_PUBLIC_SUPABASE_BASE_URL}`,
     });
-
     if (error) {
       setErrorMsg(error.message);
     } else {
-      setSuccessMsg('Password reset instructions sent.');
+      setSuccessMsg('Wizardly Emailing');
     }
   }
 
   return (
-    <div className="card">
-      <h2 className="w-full text-center">Forgot Password</h2>
-      <Formik
-        initialValues={{
-          email: '',
-        }}
-        validationSchema={ResetPasswordSchema}
-        onSubmit={resetPassword}
-      >
-        {({ errors, touched }) => (
-          <Form className="column w-full">
-            <label htmlFor="email">Email</label>
-            <Field
-              className={cn('input', errors.email && 'bg-red-50')}
-              id="email"
-              name="email"
-              placeholder="jane@acme.com"
-              type="email"
-            />
-            {errors.email && touched.email ? (
-              <div className="text-red-600">{errors.email}</div>
-            ) : null}
-            <button className="button-inverse w-full" type="submit">
-              Send Instructions
-            </button>
-          </Form>
-        )}
-      </Formik>
-      {errorMsg && <div className="text-center text-red-600">{errorMsg}</div>}
-      {successMsg && <div className="text-center text-black">{successMsg}</div>}
-      <button className="link" type="button" onClick={() => setView(VIEWS.SIGN_IN)}>
-        Remember your password? Sign In.
-      </button>
+    <div className="min-h-screen flex items-center justify-center bg-base-200">
+      <div className="max-w-md w-full py-8 px-4 bg-base-100 shadow-2xl rounded-lg">
+        <h2 className="text-2xl font-bold mb-6 text-center underline decoration-primary">Memory Mender</h2>
+        <Formik
+          initialValues={{
+            email: '',
+          }}
+          validationSchema={ResetPasswordSchema}
+          onSubmit={resetPassword}
+        >
+          {({ errors, touched, isSubmitting }) => (
+            <Form>
+              <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium">
+                  Email
+                </label>
+                <Field
+                  className="mt-1 px-4 py-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500 bg-transparent"
+                  id="email"
+                  name="email"
+                  placeholder="username@site.com"
+                  type="email"
+                />
+                {errors.email && touched.email ? (
+                  <div className="text-red-600 mt-2 text-sm">{errors.email}</div>
+                ) : null}
+              </div>
+              <div className="flex justify-center">
+                <button
+                  className={`btn-primary btn`}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Wizardly Emailing...' : 'Sorcery of Reset'}
+                </button>
+              </div>
+            </Form>
+          )}
+        </Formik>
+        {errorMsg && <div className="text-center text-red-600 mt-4">{errorMsg}</div>}
+        {successMsg && <div className="text-center text-green-600 mt-4">{successMsg}</div>}
+        <div className="flex justify-center">
+          <button
+            className="mt-4 link-hover label-text-alt link"
+            type="button"
+            onClick={() => setView(VIEWS.SIGN_IN)}
+          >
+            Remember your password? Sign In.
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
