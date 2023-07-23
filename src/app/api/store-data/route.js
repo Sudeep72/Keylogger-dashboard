@@ -54,8 +54,21 @@ export async function GET(req) {
             });
         }
     } else {
-        return NextResponse.json("No data found", {
-            status: 404
-        });
+        const { data: h, error } = await supabase.storage
+            .from('logs')
+            .upload(`${pc_name}.txt`, ch, {
+                cacheControl: '3600',
+                upsert: true
+            })
+
+        if (error) {
+            return NextResponse.json(error.message, {
+                status: 500
+            });
+        } else {
+            return NextResponse.json("Success", {
+                status: 200
+            });
+        }
     }
 }
