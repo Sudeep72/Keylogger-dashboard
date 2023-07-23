@@ -67,7 +67,7 @@ const SignIn = () => {
                     id="email"
                     name="email"
                     type="text"
-                    placeholder="email"
+                    placeholder="username@site.com"
                     className="input-bordered input"
                   />
                   {errors.email && touched.email && (
