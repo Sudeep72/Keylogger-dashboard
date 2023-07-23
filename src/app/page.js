@@ -2,7 +2,7 @@
 import Auth from 'src/components/Auth';
 import { useAuth, VIEWS } from 'src/components/AuthProvider';
 import Navbar from '@/components/layout/Navbar';
-import File from '../components/file/File';
+import File from '@/components/file/File';
 
 export default function Home() {
   const { initial, user, view, signOut } = useAuth();
