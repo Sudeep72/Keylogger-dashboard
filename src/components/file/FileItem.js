@@ -3,6 +3,9 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 const FileItem = ({ name, updated_at, size }) => {
+  if(name==='.emptyFolderPlaceholder'){
+    return;
+  }
   const icon = '📄';
   const router = useRouter();
 
