@@ -4,6 +4,7 @@ import { useAuth, VIEWS } from 'src/components/AuthProvider';
 import Navbar from '@/components/layout/Navbar';
 import File from '@/components/file/File';
 import Loading from '@/components/layout/Loading';
+import Footer from '@/components/layout/Footer';
 
 export default function Home() {
   const { initial, user, view, signOut } = useAuth();
@@ -23,7 +24,7 @@ export default function Home() {
         <File />
         <div className="2xk:hidden flex flex-col items-center justify-center pt-3 lg:hidden xl:hidden ">
           <button
-            className="btn-primary btn-outline btn mt-4 w-32 px-4 py-2"
+            className="btn-primary btn-outline btn mt-4 w-32 px-4 my-6"
             onClick={signOut}
           >
             Sign Out
@@ -33,5 +34,10 @@ export default function Home() {
     );
   }
 
-  return <Auth view={view} />;
+  return (
+    <div>
+      <Auth view={view} />
+      <Footer />
+    </div>
+  )
 }

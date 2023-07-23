@@ -16,9 +16,9 @@ export default async function RootLayout({ children }) {
   const accessToken = session?.access_token || null;
 
   return (
-    <html lang="en">
+    <html lang="en" className='bg-base-200'>
       <body>
-          <main>
+          <main className='min-h-screen overflow-hidden'>
             <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
           </main>
       </body>

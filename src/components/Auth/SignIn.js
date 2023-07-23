@@ -43,9 +43,9 @@ const SignIn = () => {
   }
 
   return (
-    <div className="hero min-h-screen bg-base-200">
+    <div className="hero bg-base-200">
       <div className="hero-content flex">
-        <div className="card w-96 bg-base-100 shadow-2xl">
+        <div className="card w-[42vh] lg:w-96 xl:w-96 bg-base-100 shadow-2xl">
           <div className="text-center">
             <h1 className="text-5xl font-bold p-5 underline decoration-primary">Login now!</h1>
           </div>
@@ -109,7 +109,6 @@ const SignIn = () => {
           </Formik>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

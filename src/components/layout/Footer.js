@@ -6,6 +6,8 @@ export default function Footer() {
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState('');
 
+  const possible = ['alert-warning', 'alert-error', 'alert-success']
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = e.target.mail.value;
@@ -60,7 +62,7 @@ export default function Footer() {
   };
 
   return (
-    <div className="fixed inset-x-0 bottom-0 mx-auto mt-8 flex flex-col items-center justify-center p-4 text-white">
+    <div className="bg-base-200 flex flex-col items-center justify-center py-3 text-white">
       <h4 className="mb-2 font-poppins">Need to Register or any Queries?</h4>
       <div className="relative">
         <form className="form-control" method="POST" onSubmit={handleSubmit}>
@@ -81,7 +83,7 @@ export default function Footer() {
         </form>
       </div>
       {showToast && (
-        <div className={`toast-end toast`}>
+        <div className={`toast-end toast hidden:alert-warning hidden:alert-error hidden:alert-success`}>
           <div className={`alert alert-${toastType}`}>
             <span>{toastMessage}</span>
           </div>
