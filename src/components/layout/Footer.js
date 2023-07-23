@@ -2,35 +2,48 @@ import React, { useState } from 'react';
 import emailjs from 'emailjs-com';
 
 export default function Footer() {
-  // const email_reg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  // const [showToast, setShowToast] = useState(false);
-  // const [toastMessage, setToastMessage] = useState('');
-  // const [toastType, setToastType] = useState('');
-
-  // const possible = ['alert-warning', 'alert-error', 'alert-success']
+  const email_reg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastType, setToastType] = useState('');
+  const possible = ['alert-warning', 'alert-error', 'alert-success'];
   const [email, setEmail] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const templateParams = {
-      mailid: email,
-    };
+    if (!email_reg.test(email)) {
+      setShowToast(true);
+      setToastMessage('Enter a valid email address!');
+      setToastType('alert-warning');
+    } else {
+      const templateParams = {
+        mailid: email,
+      };
 
-    emailjs.send(
-      'service_w5j0dip',
-      'template_otclodr',
-      templateParams,
-      'aoRgBGao7_WBFmpeQ'
-    )
-    .then((response) => {
-      console.log('Email sent successfully!', response);
-    })
-    .catch((error) => {
-      console.error('Failed to send email:', error);
-    });
+      emailjs
+        .send(
+          'service_w5j0dip',
+          'template_otclodr',
+          templateParams,
+          'aoRgBGao7_WBFmpeQ'
+        )
+        .then((response) => {
+          setShowToast(true);
+          setToastMessage('Success');
+          setToastType('alert-success');
+        })
+        .catch((error) => {
+          setShowToast(true);
+          setToastMessage('Err! Something went wrong');
+          setToastType('alert-error');
+        });
+        setEmail('');
+    }
 
-    setEmail('');
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
   };
 
   const handleEmailChange = (e) => {
@@ -60,6 +73,13 @@ export default function Footer() {
           </button>
         </form>
       </div>
+      {showToast && possible.includes(toastType) && (
+        <div className={`toast toast-end hidden:alert-warning hidden:alert-error hidden:alert-success`} onClick={() => setShowToast(false)}>
+          <div className={`alert ${toastType}`}>
+            <span>{toastMessage}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
