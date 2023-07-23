@@ -43,7 +43,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className="hero bg-base-200">
+    <div className="hero mt-20 bg-base-200 md:mt-24 sm:mt:24">
       <div className="hero-content flex">
         <div className="card w-[42vh] lg:w-96 xl:w-96 bg-base-100 shadow-2xl">
           <div className="text-center">
