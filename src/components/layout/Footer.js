@@ -1,71 +1,37 @@
 import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
 
 export default function Footer() {
-  const email_reg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastType, setToastType] = useState('');
-
-  const possible = ['alert-warning', 'alert-error', 'alert-success']
+  const [email, setEmail] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const email = e.target.mail.value;
 
-    if (!email_reg.test(email)) {
-      setShowToast(true);
-      setToastMessage('Enter a valid email address!');
-      setToastType('warning');
+    emailjs.send(
+      'service_w5j0dip',
+      'template_otclodr',
+      { email },
+      'aoRgBGao7_WBFmpeQ'
+    )
+    .then((response) => {
+      console.log('Email sent successfully!', response);
+    })
+    .catch((error) => {
+      console.error('Failed to send email:', error);
+    });
 
-      setTimeout(() => {
-        setShowToast(false);
-      }, 3000);
-    } else {
-      const data = {
-        mail: email,
-      };
+    setEmail('');
+  };
 
-      const JSONdata = JSON.stringify(data);
-
-      const endpoint = "/api/send-query";
-
-      const options = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSONdata,
-      };
-
-      fetch(endpoint, options)
-        .then((res) => res.json())
-        .then((response) => {
-          if (response.status === "ok") {
-            setShowToast(true);
-            setToastMessage('Success');
-            setToastType('success');
-
-            setTimeout(() => {
-              setShowToast(false);
-            }, 3000);
-          } else {
-            setShowToast(true);
-            setToastMessage('Err! Something went wrong');
-            setToastType('error');
-
-            setTimeout(() => {
-              setShowToast(false);
-            }, 3000);
-          }
-        });
-    }
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
   return (
     <div className="bg-base-200 flex flex-col items-center justify-center py-3 text-white">
       <h4 className="mb-2 font-poppins">Need to Register or any Queries?</h4>
       <div className="relative">
-        <form className="form-control" method="POST" onSubmit={handleSubmit}>
+        <form className="form-control" onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="username@site.com"
@@ -73,6 +39,8 @@ export default function Footer() {
             id="mail"
             autoComplete="on"
             className="input-primary input w-auto pr-16"
+            value={email}
+            onChange={handleEmailChange}
           />
           <button
             type="submit"
@@ -82,13 +50,6 @@ export default function Footer() {
           </button>
         </form>
       </div>
-      {showToast && (
-        <div className={`toast-end toast hidden:alert-warning hidden:alert-error hidden:alert-success`}>
-          <div className={`alert alert-${toastType}`}>
-            <span>{toastMessage}</span>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
