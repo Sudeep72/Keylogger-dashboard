@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from 'react';
 import { Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
@@ -34,7 +35,7 @@ const UpdatePassword = () => {
 
   return (
     <div className="p-4 max-w-md mx-auto bg-base-100 shadow-md rounded-lg mt-52">
-      <h2 className="text-3xl font-bold text-center mb-4 underline decoration-primary">Update Password</h2>
+      <h2 className="text-3xl font-bold text-center mb-4 underline decoration-primary">KeyGuard Update</h2>
       <Formik
         initialValues={{
           password: '',
