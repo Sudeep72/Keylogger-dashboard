@@ -74,9 +74,9 @@ Some uses of Keylogger are:
 
 ---
 
-Once the program is started, no window will be opened because it runs in the stealth mode.
+> Once the program is started, no window will be opened because it runs in the stealth mode.
 
-To end the program, navigate to task manager. Search for the program and end it.
+> To end the program, navigate to task manager. Search for the program and end it.
 
 Feel free to contribute to fix any problems, or to submit an issue!
 
