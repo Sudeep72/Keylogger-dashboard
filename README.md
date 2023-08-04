@@ -35,6 +35,8 @@ Create a Supabase account and setup a project
 
 For more information, refer [Supabase](https://supabase.com/docs)
 
+Create an Email Js account and use the Credentials to redirect the mail to your account by changing them at Footer.js
+
 Run the project
 ```
 npm run dev
